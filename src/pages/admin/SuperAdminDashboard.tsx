@@ -4,6 +4,13 @@ import Sidebar from "@/components/dashboard/Sidebar";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   Users,
   MapPin,
   Settings,
@@ -11,8 +18,10 @@ import {
   Activity,
   Server,
   FileText,
-  PlusCircle
+  PlusCircle,
+  UserPlus
 } from "lucide-react";
+import OwnerRegistrationForm from "@/components/admin/OwnerRegistrationForm";
 
 // Mock data for super admin statistics
 const mockStats = [
@@ -71,15 +80,31 @@ const recentActivities = [
 ];
 
 export default function SuperAdminDashboard() {
+  const [isRegistrationDialogOpen, setIsRegistrationDialogOpen] = useState(false);
+  
+  const handleRegistrationComplete = () => {
+    setIsRegistrationDialogOpen(false);
+  };
+  
   return (
     <div className="flex h-screen bg-gray-50">
       <Sidebar userType="admin" />
       
       <div className="flex-1 overflow-y-auto">
         <div className="p-8">
-          <div className="mb-8">
-            <h1 className="text-2xl font-bold">Super Admin Dashboard</h1>
-            <p className="text-gray-600">Welcome back, Super Admin</p>
+          <div className="flex items-center justify-between mb-8">
+            <div>
+              <h1 className="text-2xl font-bold">Super Admin Dashboard</h1>
+              <p className="text-gray-600">Welcome back, Super Admin</p>
+            </div>
+            
+            <Button 
+              onClick={() => setIsRegistrationDialogOpen(true)}
+              className="flex items-center gap-2"
+            >
+              <UserPlus className="h-4 w-4" />
+              Register New Owner
+            </Button>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -127,6 +152,19 @@ export default function SuperAdminDashboard() {
           </Card>
         </div>
       </div>
+      
+      <Dialog open={isRegistrationDialogOpen} onOpenChange={setIsRegistrationDialogOpen}>
+        <DialogContent className="sm:max-w-[700px] max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Register New Ground Owner</DialogTitle>
+            <DialogDescription>
+              Fill in the details to register a new ground owner
+            </DialogDescription>
+          </DialogHeader>
+          
+          <OwnerRegistrationForm onRegistrationComplete={handleRegistrationComplete} />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
