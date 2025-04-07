@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, MapPin } from "lucide-react";
@@ -37,7 +36,10 @@ export default function Navbar() {
                 <Button variant="outline">Ground Owner Login</Button>
               </Link>
               <Link to="/admin/login">
-                <Button>Admin</Button>
+                <Button>Admin Login</Button>
+              </Link>
+              <Link to="/super-admin/login">
+                <Button variant="secondary">Super Admin Login</Button>
               </Link>
             </div>
           </div>
@@ -73,7 +75,10 @@ export default function Navbar() {
                 <Button variant="outline" className="w-full">Ground Owner Login</Button>
               </Link>
               <Link to="/admin/login">
-                <Button className="w-full">Admin</Button>
+                <Button className="w-full">Admin Login</Button>
+              </Link>
+              <Link to="/super-admin/login">
+                <Button variant="secondary" className="w-full">Super Admin Login</Button>
               </Link>
             </div>
           </div>
